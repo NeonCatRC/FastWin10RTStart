@@ -66,6 +66,7 @@ Exit
 
 write-host "All folders checked!" -ForegroundColor Green  
 ################### Hello screen ############################
+
 write-host ">========================================================<" -ForegroundColor Cyan
 write-host "                      Hello there!" -ForegroundColor Cyan
 write-host "               Thanks for using my script" -ForegroundColor Cyan
@@ -248,7 +249,6 @@ cls
 switch ($water){
  
  "Y"{
- start cmd {
  bcdedit.exe -set TESTSIGNING off
  takeown /f c:\windows\system32\ru-RU\shell32.dll.mui
  takeown /f c:\windows\system32\en-US\shell32.dll.mui
@@ -268,7 +268,6 @@ switch ($water){
  copy $WATEROFF\Windows\Branding\Basebrd\en-US\basebrd.dll.mui c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui
  mcbuilder
 exit
-}
     }
  "N"{
  write-host "Skip disable Watermark" 
@@ -457,4 +456,4 @@ start cmd {shutdown /r}
  Write-Host "Goodbye"
  start cmd {shutdown /r}
     }
-} 
+}
