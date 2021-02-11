@@ -1,5 +1,3 @@
-setlocal enableextensions
-Write-Host "SET (A)" -ForegroundColor red
 set-ExecutionPolicy RemoteSigned
 cls
 
@@ -249,25 +247,24 @@ cls
 switch ($water){
  
  "Y"{
- bcdedit.exe -set TESTSIGNING off
- takeown /f c:\windows\system32\ru-RU\shell32.dll.mui
- takeown /f c:\windows\system32\en-US\shell32.dll.mui
- takeown /f c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui
- takeown /f c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui
- icacls c:\windows\system32\ru-RU\shell32.dll.mui /t /grant Administrators:(f)
- icacls c:\windows\system32\en-US\shell32.dll.mui /t /grant Administrators:(f)
- icacls c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui /t /grant Administrators:(f)
- icacls c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui /t /grant Administrators:(f)
- move c:\windows\system32\ru-RU\shell32.dll.mui c:\windows\system32\ru-RU\@shell32.dll.mui 
- move c:\windows\system32\en-US\shell32.dll.mui c:\windows\system32\en-US\@shell32.dll.mui 
- copy $WATEROFF\windows\system32\ru-RU\shell32.dll.mui c:\windows\system32\ru-RU\shell32.dll.mui
- copy $WATEROFF\windows\system32\en-US\shell32.dll.mui c:\windows\system32\en-US\shell32.dll.mui
- move c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui c:\Windows\Branding\Basebrd\ru-RU\@basebrd.dll.mui
- move c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui c:\Windows\Branding\Basebrd\en-US\@basebrd.dll.mui
- copy $WATEROFF\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui
- copy $WATEROFF\Windows\Branding\Basebrd\en-US\basebrd.dll.mui c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui
- mcbuilder
-exit
+  bcdedit.exe -set TESTSIGNING off
+  takeown /f c:\windows\system32\ru-RU\shell32.dll.mui
+  takeown /f c:\windows\system32\en-US\shell32.dll.mui
+  takeown /f c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui
+  takeown /f c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui
+  icacls c:\windows\system32\ru-RU\shell32.dll.mui /t /grant Administrators:(f)
+  icacls c:\windows\system32\en-US\shell32.dll.mui /t /grant Administrators:(f)
+  icacls c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui /t /grant Administrators:(f)
+  icacls c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui /t /grant Administrators:(f)
+  move c:\windows\system32\ru-RU\shell32.dll.mui c:\windows\system32\ru-RU\@shell32.dll.mui 
+  move c:\windows\system32\en-US\shell32.dll.mui c:\windows\system32\en-US\@shell32.dll.mui 
+  copy $WATEROFF\windows\system32\ru-RU\shell32.dll.mui c:\windows\system32\ru-RU\shell32.dll.mui
+  copy $WATEROFF\windows\system32\en-US\shell32.dll.mui c:\windows\system32\en-US\shell32.dll.mui
+  move c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui c:\Windows\Branding\Basebrd\ru-RU\@basebrd.dll.mui
+  move c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui c:\Windows\Branding\Basebrd\en-US\@basebrd.dll.mui
+  copy $WATEROFF\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui
+  copy $WATEROFF\Windows\Branding\Basebrd\en-US\basebrd.dll.mui c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui
+  mcbuilder
     }
  "N"{
  write-host "Skip disable Watermark" 
@@ -448,12 +445,12 @@ foreach ($feature in $features) {
 }
 Write-Host "Goodbye"
 pause
-start cmd {shutdown /r}
+Restart-Computer -Force
     }
  
  "N"{
  Write-Host "You choose dont clear services"
  Write-Host "Goodbye"
- start cmd {shutdown /r}
+ Restart-Computer -Force
     }
-}
+} 
