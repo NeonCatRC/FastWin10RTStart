@@ -25,6 +25,9 @@ $CERF = "$PSScriptRoot\Files\Cert"
 # Ïàïêà îòêëþ÷åíèÿ WaterMarkè
 $WATEROFF = "$PSScriptRoot\Files\LP"
 
+#Test licensgui
+$license= Test-Path -PathType Leaf -Path "c:\windows\system32\licensingui.exe"
+
 ################### Check folders and files ############################
 if (Test-Path -Path $BaseFiles) {
 write-host "Check" -ForegroundColor Green
@@ -93,6 +96,20 @@ cls
 
 write-host ">===============================================================<" -ForegroundColor Cyan
 write-host 
+write-host "Fix Camera? (Not need if you install non-clear image)" -ForegroundColor Cyan
+write-host 
+write-host "Y. Yes" -ForegroundColor Green
+write-host "N. No" -ForegroundColor Red
+write-host 
+write-host ">===============================================================<" -ForegroundColor Cyan
+write-host
+write-host "Write [Y] or [N]" -ForegroundColor Cyan
+
+$cam=read-host
+cls
+
+write-host ">===============================================================<" -ForegroundColor Cyan
+write-host 
 write-host "Add RU locale? (Write N, if you install by Zerg_MOS instructions)" -ForegroundColor Cyan
 write-host 
 write-host "Y. Yes" -ForegroundColor Green
@@ -117,6 +134,20 @@ write-host
 write-host "Write [Y] or [N]" -ForegroundColor Cyan
 
 $water=read-host
+cls
+
+write-host ">===============================================================<" -ForegroundColor Cyan
+write-host 
+write-host "Disable BitLocker?" -ForegroundColor Cyan
+write-host 
+write-host "Y. Yes" -ForegroundColor Green
+write-host "N. No" -ForegroundColor Red
+write-host 
+write-host ">===============================================================<" -ForegroundColor Cyan
+write-host
+write-host "Write [Y] or [N]" -ForegroundColor Cyan
+
+$BitLock=read-host
 cls
 
 write-host ">=============================================<" -ForegroundColor Cyan
@@ -194,8 +225,15 @@ cls
 
 #######################Start Fix Shit###############################
 
-REG ADD "HKLM\SOFTWARE\Microsoft\Windows Media Foundation\Platform" /v "EnableFrameServerMode" /t REG_DWORD /d "00000000" 
-Write-Host "Camera work now!" -ForegroundColor DarkGreen
+switch ($cam){
+ "Y"{
+ REG ADD "HKLM\SOFTWARE\Microsoft\Windows Media Foundation\Platform" /v "EnableFrameServerMode" /t REG_DWORD /d "00000000" 
+ Write-Host "Camera work now!" -ForegroundColor DarkGreen
+    }
+ "N"{
+ Write-Host "Skip fix camera"
+    }
+} 
 cls
 
 switch ($ru){
@@ -271,12 +309,21 @@ switch ($water){
     }
 } 
 
-takeown /f c:\windows\system32\licensingui.exe
-icacls c:\windows\system32\licensingui.exe /t /grant Administrators
-move c:\windows\system32\licensingui.exe c:\windows\system32\licensingui00.exe 
-Write-Host "Annoying POPup disabled" -ForegroundColor DarkGreen
-pause
-cls
+
+Switch ($license) {
+
+"True" {
+ takeown /f c:\windows\system32\licensingui.exe
+ icacls c:\windows\system32\licensingui.exe /t /grant Administrators
+ move c:\windows\system32\licensingui.exe c:\windows\system32\licensingui00.exe 
+ Write-Host "Annoying POPup disabled" -ForegroundColor DarkGreen
+ pause
+ cls
+}
+ "False" {
+ Write-Host "LicenseGUI already delete!"
+ }
+}
 
 ###################################Install Core-Apps###########################################
 
@@ -310,11 +357,19 @@ write-host "Skip intsall METRO-apps"
  }
 }
 
-######################################Clean up###################################################
+switch ($BitLock){
+ "Y"{
+ Write-Host "Remove BitLocker" 
+ Disable-BitLocker -MountPoint C
+ Write-Host "Success" -ForegroundColor DarkGreen
+    }
+ "N"{
+ Write-Host "Skip disable BitLocker"
+    }
+} 
+cls
 
-#Write-Host "Remove BitLocker" 
-#Remove-BitLockerKeyProtector -MountPoint "C:"
-#Write-Host "Success" -ForegroundColor DarkGreen
+######################################Clean up###################################################
 
 if ($clear -like "Y" -or $clear -like "N") {
     write-host "Hm..."
