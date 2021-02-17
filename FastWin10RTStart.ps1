@@ -16,6 +16,9 @@ $BingApps = "$PSScriptRoot\Files\METROapps\secondary\Bing"
 # Папка приложений Xbox and etc.
 $EtcApps = "$PSScriptRoot\Files\METROapps\secondary\Etc"
 
+# Папка non-uwp
+$NONuwp = "$PSScriptRoot\Files\METROapps\nonuwp"
+
 # Папка Зависимостей
 $DependF = "$PSScriptRoot\Files\dependencies"
 
@@ -65,7 +68,17 @@ pause
 Exit
 }
 
+if (Test-Path -Path $NONuwp) {
+write-host "Check" -ForegroundColor Green
+}
+else {
+write-error "Missing folder! Check files!"
+pause
+Exit
+}
+
 write-host "All folders checked!" -ForegroundColor Green  
+
 ################### Hello screen ############################
 
 write-host ">========================================================<" -ForegroundColor Cyan
@@ -162,7 +175,6 @@ write-host
 write-host "Write [Y] or [N]" -ForegroundColor Cyan
 
 $METRO=read-host
-cls
 
 if ($METRO -like "Y")
 {
@@ -178,7 +190,6 @@ write-host
 write-host "Write [Y] or [N]" -ForegroundColor Cyan
 
 $Etc=read-host
-cls
 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host 
@@ -192,7 +203,6 @@ write-host
 write-host "Write [Y] or [N]" -ForegroundColor Cyan
 
 $Office=read-host
-cls
 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host 
@@ -206,8 +216,63 @@ write-host
 write-host "Write [Y] or [N]" -ForegroundColor Cyan
 
 $Bing=read-host
-cls
 }
+cls
+
+write-host ">=============================================<" -ForegroundColor Cyan
+write-host 
+write-host "Do you want install NON-UWP apps? (Like 7z, Notepad++)" -ForegroundColor Cyan
+write-host 
+write-host "Y. Yes" -ForegroundColor Green
+write-host "N. No" -ForegroundColor Red
+write-host 
+write-host ">=============================================<" -ForegroundColor Cyan
+write-host
+write-host "Write [Y] or [N]" -ForegroundColor Cyan
+
+$NONMETRO=read-host
+
+if ($NONMETRO -like "Y")
+{
+write-host ">=============================================<" -ForegroundColor Cyan
+write-host 
+write-host "Do you want install 7z (not work now UwU)?" -ForegroundColor Cyan
+write-host 
+write-host "Y. Yes" -ForegroundColor Green
+write-host "N. No" -ForegroundColor Red
+write-host 
+write-host ">=============================================<" -ForegroundColor Cyan
+write-host
+write-host "Write [Y] or [N]" -ForegroundColor Cyan
+
+$7z=read-host
+
+write-host ">=============================================<" -ForegroundColor Cyan
+write-host 
+write-host "Do you want install Notepad++" -ForegroundColor Cyan
+write-host 
+write-host "Y. Yes" -ForegroundColor Green
+write-host "N. No" -ForegroundColor Red
+write-host 
+write-host ">=============================================<" -ForegroundColor Cyan
+write-host
+write-host "Write [Y] or [N]" -ForegroundColor Cyan
+
+$Notepad=read-host
+
+write-host ">=============================================<" -ForegroundColor Cyan
+write-host 
+write-host "Do you want install Internet Explorer?" -ForegroundColor Cyan
+write-host 
+write-host "Y. Yes" -ForegroundColor Green
+write-host "N. No" -ForegroundColor Red
+write-host 
+write-host ">=============================================<" -ForegroundColor Cyan
+write-host
+write-host "Write [Y] or [N]" -ForegroundColor Cyan
+
+$IE=read-host
+cls}
 
 write-host ">====================================================<" -ForegroundColor Cyan
 write-host 
@@ -225,19 +290,19 @@ cls
 
 #######################Start Fix Shit###############################
 
+#######################camera#######################
 switch ($cam){
  "Y"{
  REG ADD "HKLM\SOFTWARE\Microsoft\Windows Media Foundation\Platform" /v "EnableFrameServerMode" /t REG_DWORD /d "00000000" 
  Write-Host "Camera work now!" -ForegroundColor DarkGreen
     }
- "N"{
- Write-Host "Skip fix camera"
-    }
+ "N"{Write-Host "Skip fix camera"}
 } 
 cls
 
+#######################RU#######################
+
 switch ($ru){
- 
  "Y"{
  REG ADD "HKLM\SYSTEM\CurrentControlSet\Control\Nls\CodePage" /v OEMCP /d 866
  REG ADD "HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce" /v kbl /d 
@@ -248,10 +313,10 @@ switch ($ru){
  REG import $BaseFiles\ru.reg
  Write-Host "Ru enabled!" -ForegroundColor DarkGreen
     }
- "N"{
- write-host "Skip install Russian language"
-    }
-} 
+ "N"{write-host "Skip install Russian language"}
+ } 
+
+#######################Pagefile#######################
 
 $computersys = Get-WmiObject Win32_ComputerSystem -EnableAllPrivileges;
 $computersys.AutomaticManagedPagefile = $False;
@@ -263,9 +328,13 @@ $pagefile.Put();
 Write-Host "Pagefile set!" -ForegroundColor DarkGreen
 cls
 
+#######################Import certificate#######################
+
 Import-Certificate -FilePath $CERF\CERbyNeonCat.cer -CertStoreLocation Cert:\LocalMachine\Root
 #Import-Certificate -FilePath $CERF\21.cer -CertStoreLocation Cert:\LocalMachine\Root
 cls
+
+#######################Activate Win#######################
 
 switch ($act){
  "Y"{
@@ -275,33 +344,36 @@ switch ($act){
  slmgr /ato
  Write-Host "Activated!" -ForegroundColor DarkGreen
     }
- "N"{
- write-host "Skip activation" 
-    }
+ "N"{write-host "Skip activation"}
 } 
 cls
 
-#Отключение Вотермарки
+#######################Delete watermark#######################
+
 switch ($water){
  
  "Y"{
   bcdedit.exe -set TESTSIGNING off
-  takeown /f c:\windows\system32\ru-RU\shell32.dll.mui
-  takeown /f c:\windows\system32\en-US\shell32.dll.mui
-  takeown /f c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui
-  takeown /f c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui
-  icacls c:\windows\system32\ru-RU\shell32.dll.mui /t /grant Administrators:(f)
-  icacls c:\windows\system32\en-US\shell32.dll.mui /t /grant Administrators:(f)
-  icacls c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui /t /grant Administrators:(f)
-  icacls c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui /t /grant Administrators:(f)
-  move c:\windows\system32\ru-RU\shell32.dll.mui c:\windows\system32\ru-RU\@shell32.dll.mui 
-  move c:\windows\system32\en-US\shell32.dll.mui c:\windows\system32\en-US\@shell32.dll.mui 
-  copy $WATEROFF\windows\system32\ru-RU\shell32.dll.mui c:\windows\system32\ru-RU\shell32.dll.mui
-  copy $WATEROFF\windows\system32\en-US\shell32.dll.mui c:\windows\system32\en-US\shell32.dll.mui
-  move c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui c:\Windows\Branding\Basebrd\ru-RU\@basebrd.dll.mui
-  move c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui c:\Windows\Branding\Basebrd\en-US\@basebrd.dll.mui
-  copy $WATEROFF\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui
-  copy $WATEROFF\Windows\Branding\Basebrd\en-US\basebrd.dll.mui c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui
+  If (Test-Path -PathType Leaf -Path "c:\windows\system32\ru-RU\shell32.dll.mui") {
+  takeown /f "c:\windows\system32\ru-RU\shell32.dll.mui" /r
+  icacls c:\windows\system32\ru-RU\shell32.dll.mui /t /grant "Administrators:f"
+  Move-Item "c:\windows\system32\ru-RU\shell32.dll.mui" "c:\windows\system32\ru-RU\@shell32.dll.mui" -Force }
+  If (Test-Path -PathType Leaf -Path "c:\windows\system32\en-US\shell32.dll.mui") {
+  takeown /f "c:\windows\system32\en-US\shell32.dll.mui" /r
+  icacls c:\windows\system32\en-US\shell32.dll.mui /t /grant "Administrators:f"
+  Move-Item "c:\windows\system32\en-US\shell32.dll.mui" "c:\windows\system32\en-US\@shell32.dll.mui" -Force }
+  If (Test-Path -PathType Leaf -Path "c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui") {
+  takeown /f "c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui" /r
+  icacls c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui /t /grant "Administrators:f"
+  Move-Item "c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui" "c:\Windows\Branding\Basebrd\ru-RU\@basebrd.dll.mui" -Force }
+  If (Test-Path -PathType Leaf -Path "c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui") {
+  takeown /f "c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui" /r
+  icacls c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui /t /grant "Administrators:f"
+  Move-Item "c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui" "c:\Windows\Branding\Basebrd\en-US\@basebrd.dll.mui" -Force }
+  Copy-Item "$WATEROFF\windows\system32\ru-RU\shell32.dll.mui" "c:\windows\system32\ru-RU\shell32.dll.mui" -Force 
+  Copy-Item "$WATEROFF\windows\system32\en-US\shell32.dll.mui" "c:\windows\system32\en-US\shell32.dll.mui" -Force 
+  Copy-Item "$WATEROFF\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui" "c:\Windows\Branding\Basebrd\ru-RU\basebrd.dll.mui" -Force 
+  Copy-Item "$WATEROFF\Windows\Branding\Basebrd\en-US\basebrd.dll.mui" "c:\Windows\Branding\Basebrd\en-US\basebrd.dll.mui" -Force 
   mcbuilder
     }
  "N"{
@@ -309,13 +381,14 @@ switch ($water){
     }
 } 
 
+#######################Disable LicensinGUI#######################
 
 Switch ($license) {
 
 "True" {
- takeown /f c:\windows\system32\licensingui.exe
- icacls c:\windows\system32\licensingui.exe /t /grant Administrators
- move c:\windows\system32\licensingui.exe c:\windows\system32\licensingui00.exe 
+ takeown /f "c:\windows\system32\licensingui.exe" /r
+ icacls "c:\windows\system32\licensingui.exe" /t /grant "Administrators:f"
+ Move-Item "c:\windows\system32\licensingui.exe" "c:\windows\system32\licensingui00.exe" -Force
  Write-Host "Annoying POPup disabled" -ForegroundColor DarkGreen
  pause
  cls
@@ -325,37 +398,52 @@ Switch ($license) {
  }
 }
 
-###################################Install Core-Apps###########################################
+###################################Install Dependencies###########################################
 
 Write-Host "Start Install Dependencies" 
 Add-AppxPackage -Path $DependF\*.Appx
 Add-AppxPackage -Path $DependF\*.AppxBundle
+DISM.exe /Online /Add-Package /NoRestart /PackagePath:$NONuwp\microsoft-windows-netfx3-ondemand-package.cab
+Invoke-Expression -Command "$NONuwp\vcredist_arm.exe"
+Write-host "install the Visual C++ package first" -BackgroundColor Red
+pause
 Write-Host "Success" -ForegroundColor DarkGreen
-cls
 
+
+###################################Install Core-Apps###########################################
 Switch ($METRO) {
  "Y" { 
-Write-Host "Start Install METROapps"
-Add-AppxPackage -Path $METROapps\*.Appx
-Add-AppxPackage -Path $METROapps\*.AppxBundle
-  
-  If ($Office -like "Y") {
-  Add-AppxPackage -Path $OfficeApps\*.AppxBundle
-  }
-
-  If ($Etc -like "Y") {
-  Add-AppxPackage -Path $EtcApps\*.AppxBundle
-  }
-
-  If ($Bing -like "Y") {
-  Add-AppxPackage -Path $BingApps\*.AppxBundle
-  }
-cls
+  Write-Host "Start Install METROapps"
+  Add-AppxPackage -Path $METROapps\*.Appx
+  Add-AppxPackage -Path $METROapps\*.AppxBundle
+  If ($Office -like "Y") {Add-AppxPackage -Path $OfficeApps\*.AppxBundle}
+  If ($Etc -like "Y") {Add-AppxPackage -Path $EtcApps\*.AppxBundle}
+  If ($Bing -like "Y") {Add-AppxPackage -Path $BingApps\*.AppxBundle}
+  cls
+}
+"N" {write-host "Skip intsall METRO-apps"}
+}
+Switch ($NONMETRO) {
+ "Y"{
+ If ($7z -like "Y") {#Invoke-Expression -Command '$NONuwp\7z2002-arm.exe' 
  }
-"N" {
-write-host "Skip intsall METRO-apps"
+ If ($Notepad -like "Y") {Copy-Item -Path "$NONuwp\Notepad++" -Destination "C:\Program Files\" -Recurse
+ REG ADD "HKCR\*\shell\Editor" /v "MUIVerb" /t REG_SZ /d "Edit with Notepad++" -Force
+ REG ADD "HKCR\*\shell\Editor" /v "Icon" /t REG_SZ /d "C:\Program Files\Notepad++\notepad++.exe" -Force
+ REG ADD "HKCR\*\shell\Editor\command" /ve /d '\"C:\Program Files\Notepad++\notepad++.exe\" %%1' -Force
+ $source = "C:\Program Files\Notepad++\notepad++.exe"
+ $target = "$home\Desktop\Motepad++.lnk"
+ $WorkingDir = "C:\Program Files\Notepad++"
+ $WshShell = New-Object -comObject WScript.Shell
+ $Shortcut = $WshShell.CreateShortcut($target)
+ $Shortcut.WorkingDirectory = $WorkingDir
+ $Shortcut.TargetPath = $source
+ $Shortcut.Save()}
+ If ($IE -like "Y") {DISM.exe /Online /Add-Package /NoRestart /PackagePath:$NONuwp\microsoft-windows-internetexplorer-optional-package.cab}
  }
 }
+pause
+#######################Delete BitLocker#######################
 
 switch ($BitLock){
  "Y"{
@@ -371,16 +459,12 @@ cls
 
 ######################################Clean up###################################################
 
-if ($clear -like "Y" -or $clear -like "N") {
-    write-host "Hm..."
-    cls
-}
 switch ($clear){
  
  "Y"{
  New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
 
-Write-Host 'Updating registry settings...'
+ Write-Host 'Updating registry settings...'
 
 # Disable some of the "new" features of Windows 10, such as forcibly installing apps you don't want, and the new annoying animation for first time login.
 New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\' -Name 'CloudContent'
@@ -424,8 +508,7 @@ New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Delivery
 
 Write-Host 'Disabling services...'
 $services = @(
-    # See https://virtualfeller.com/2017/04/25/optimize-vdi-windows-10-services-original-anniversary-and-creator-updates/
-
+   
     # Connected User Experiences and Telemetry
     'DiagTrack',
 
@@ -509,3 +592,5 @@ Restart-Computer -Force
  Restart-Computer -Force
     }
 } 
+
+# https://github.com/NeonCatRC/FastWin10RTStart

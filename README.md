@@ -23,10 +23,11 @@ RU: FastWin10RTStart это скрипт с набором программ, к�
 # Todos
 
  - Интеграция скрипта скачки файлов в основной скрипт.
- - Добавить проверку на запуск от администратора.
- - Добавить удаление BitLocker. -Fixed
- - Добавить добавление полной руссификации.
- - Починить удаление вотермарки.
+ - Пофиксить запуск 7z.
+ - Добавить установку Non-UWP приложений. -Check
+ - Добавить удаление BitLocker. -Check
+ - Добавить добавление полной руссификации. -Не реализуемо
+ - Починить удаление вотермарки. -Fixed
  - Починить Ё****ю перезагрузку после завершения скрипта.  -Fixed
 
 # Manual download files
@@ -42,7 +43,7 @@ Archive.org- [Link][Archive]
 |Win10 CleanUp PowerShell script| [GitHub][Clean] |
 
 
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+[//]:
    [wget]: <https://www.gnu.org/software/wget/>
    [7z]: <https://www.7-zip.org/>
    [Clean]: <https://gist.github.com/halkyon/b73fb75e61c37b7ba5f65bb6f3979f00>
