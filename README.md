@@ -43,7 +43,7 @@ Archive.org- [Link][Archive]
 |Win10 CleanUp PowerShell script| [GitHub][Clean] |
 
 
-[//]:
+[//]: # 
    [wget]: <https://www.gnu.org/software/wget/>
    [7z]: <https://www.7-zip.org/>
    [Clean]: <https://gist.github.com/halkyon/b73fb75e61c37b7ba5f65bb6f3979f00>
