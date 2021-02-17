@@ -428,9 +428,6 @@ Switch ($NONMETRO) {
  If ($7z -like "Y") {#Invoke-Expression -Command '$NONuwp\7z2002-arm.exe' 
  }
  If ($Notepad -like "Y") {Copy-Item -Path "$NONuwp\Notepad++" -Destination "C:\Program Files\" -Recurse
- REG ADD "HKCR\*\shell\Editor" /v "MUIVerb" /t REG_SZ /d "Edit with Notepad++" -Force
- REG ADD "HKCR\*\shell\Editor" /v "Icon" /t REG_SZ /d "C:\Program Files\Notepad++\notepad++.exe" -Force
- REG ADD "HKCR\*\shell\Editor\command" /ve /d '\"C:\Program Files\Notepad++\notepad++.exe\" %%1' -Force
  $source = "C:\Program Files\Notepad++\notepad++.exe"
  $target = "$home\Desktop\Motepad++.lnk"
  $WorkingDir = "C:\Program Files\Notepad++"
