@@ -425,8 +425,7 @@ Switch ($METRO) {
 }
 Switch ($NONMETRO) {
  "Y"{
- If ($7z -like "Y") {#Invoke-Expression -Command '$NONuwp\7z2002-arm.exe' 
- }
+ If ($7z -like "Y") {& "$NONuwp\7z2002-arm.exe"}
  If ($Notepad -like "Y") {Copy-Item -Path "$NONuwp\Notepad++" -Destination "C:\Program Files\" -Recurse
  $source = "C:\Program Files\Notepad++\notepad++.exe"
  $target = "$home\Desktop\Motepad++.lnk"
