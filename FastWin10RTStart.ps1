@@ -32,50 +32,25 @@ $WATEROFF = "$PSScriptRoot\Files\LP"
 $license= Test-Path -PathType Leaf -Path "c:\windows\system32\licensingui.exe"
 
 ################### Check folders and files ############################
-if (Test-Path -Path $BaseFiles) {
-write-host "Check" -ForegroundColor Green
-}
-else {
-write-error "Missing folder! Check files!"
-pause
-Exit
-}
+if (Test-Path -Path $BaseFiles) {write-host "Check" -ForegroundColor Green}
+if (Test-Path -Path $DependF) {write-host "Check" -ForegroundColor Green}
+if (Test-Path -Path $CERF) {write-host "Check" -ForegroundColor Green}
+if (Test-Path -Path $METROapps) {write-host "Check" -ForegroundColor Green}
+if (Test-Path -Path $NONuwp) {write-host "Check" -ForegroundColor Green}
+else {write-error "Missing folder! Check files!"}
 
-if (Test-Path -Path $DependF) {
-write-host "Check" -ForegroundColor Green
-}
-else {
-write-error "Missing folder! Check files!"
-pause
-Exit
-}
-
-if (Test-Path -Path $CERF) {
-write-host "Check" -ForegroundColor Green
-}
-else {
-write-error "Missing folder! Check files!"
-pause
-Exit
-}
-
-if (Test-Path -Path $METROapps) {
-write-host "Check" -ForegroundColor Green
-}
-else {
-write-error "Missing folder! Check files!"
-pause
-Exit
-}
-
-if (Test-Path -Path $NONuwp) {
-write-host "Check" -ForegroundColor Green
-}
-else {
-write-error "Missing folder! Check files!"
-pause
-Exit
-}
+While($Downl -notlike "Y"){
+ Write-host "Do You want to start download script?"
+ Write-host "Write Y or N"
+ $Downl=read-Host
+ Switch($choose){
+  "Y" {$Downl=$choose}
+  "N" {Write-host "Choose again"}
+  }
+ If ($Downl -like "Y") {powershell .\FW10RT_Download_and_Copy.ps1}
+ pause
+ Exit
+ }
 
 write-host "All folders checked!" -ForegroundColor Green  
 
@@ -425,8 +400,7 @@ Switch ($METRO) {
 }
 Switch ($NONMETRO) {
  "Y"{
- If ($7z -like "Y") {#Invoke-Expression -Command '$NONuwp\7z2002-arm.exe' 
- }
+ If ($7z -like "Y") {& "$NONuwp\7z2002-arm.exe"}
  If ($Notepad -like "Y") {Copy-Item -Path "$NONuwp\Notepad++" -Destination "C:\Program Files\" -Recurse
  $source = "C:\Program Files\Notepad++\notepad++.exe"
  $target = "$home\Desktop\Motepad++.lnk"
