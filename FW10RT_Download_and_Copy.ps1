@@ -8,13 +8,13 @@ pause
 Exit}
 
 $ARCH = (Get-WmiObject -Class Win32_ComputerSystem).SystemType -match ‘(x86)’
- if ($var = "True") {
+ if ($ARCH = "True") {
 
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $Download_and_Copy               = New-Object system.Windows.Forms.Form
-$Download_and_Copy.ClientSize    = New-Object System.Drawing.Point(433,163)
+$Download_and_Copy.ClientSize    = New-Object System.Drawing.Point(435,150)
 $Download_and_Copy.text          = "Download and Copy for WRT3"
 $Download_and_Copy.TopMost       = $false
 $Download_and_Copy.BackColor     = [System.Drawing.ColorTranslator]::FromHtml("#4d4d4d")
