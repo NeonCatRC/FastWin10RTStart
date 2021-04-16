@@ -7,14 +7,14 @@ RU: FastWin10RTStart это скрипт с набором программ, к�
 # How to use
 ##### RU
 1) Переместите папку с файлами на память планшета (Например на рабочий стол)
-2) Если у вас нет папки "Files", скачайте. Для этого откройте "FW10RT_Download_and_Copy.ps1" (Только для х64 Windows)
+2) Если у вас нет папки "Files", скачайте. Для этого откройте "FW10RT_Download_and_Copy.ps1" 
 3) Запустите "FastWin10RTStart.ps1" с помощью PowerShell
 4) Выберите нужные параметры для вас.
 5) Дождитесь конца работы скрипта, в нужных моментах нажимайте Enter.
 6) Перезагрузите ваш планшет для применения изменений.
 ##### EN
 1) Move the file folder to the tablet's memory (for example, to the desktop)
-2) If you don't have the "Files" folder, download it. To do this, open "FW10RT_Download_and_Copy.ps1" (Windows x64 only)
+2) If you don't have the "Files" folder, download it. To do this, open "FW10RT_Download_and_Copy.ps1"
 3) Run "FastWin10RTStart.ps1" using PowerShell
 4) Select the desired parameters for you.
 5) Wait for the end of the script, press Enter at the right moments.
@@ -40,6 +40,7 @@ Archive.org- [Link][Archive]
 | ------ | ------ |
 | wget | [GNU.org][wget] |
 | 7z | [7Z Website][7z] |
+| cUrl | [cUrl Website][Curl]  |
 |Win10 CleanUp PowerShell script| [GitHub][Clean] |
 
 
@@ -50,3 +51,4 @@ Archive.org- [Link][Archive]
    [Yandex]: <https://yadi.sk/d/XBLlgbBXLigUhA?w=1>
    [Google]: <https://drive.google.com/drive/folders/1-oIPQSwXYz6FCiu-9qtkUPGopQWAmosK?usp=sharing>
    [Archive]: <https://archive.org/details/files-wrt-3>
+   [Curl]: <https://curl.se/>

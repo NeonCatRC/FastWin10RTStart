@@ -1,16 +1,30 @@
 if (Test-Path -Path "$PSScriptRoot\Bin") { write-host "Folder check" -ForegroundColor Green }
 if (Test-Path -Path "$PSScriptRoot\Bin\wget") {write-host "Folder check" -ForegroundColor Green}
 if (Test-Path -Path "$PSScriptRoot\Bin\7z") {write-host "Folder check" -ForegroundColor Green}
+if (Test-Path -Path "$PSScriptRoot\Bin\curl-arm") {write-host "Folder check" -ForegroundColor Green}
+if (Test-Path -Path "$PSScriptRoot\Bin\7z-arm") {write-host "Folder check" -ForegroundColor Green}
 if (Test-Path -PathType Leaf -Path "$PSScriptRoot\Bin\7z\7z.exe") {write-host "7z here" -ForegroundColor Green}
 if (Test-Path -PathType Leaf -Path "$PSScriptRoot\Bin\wget\wget.exe") {write-host "wget here" -ForegroundColor Green}
+if (Test-Path -PathType Leaf -Path "$PSScriptRoot\Bin\7z-arm\7z.exe") {write-host "7z-arm here" -ForegroundColor Green}
+if (Test-Path -PathType Leaf -Path "$PSScriptRoot\Bin\curl-arm\curl.exe") {write-host "curl here" -ForegroundColor Green}
 else {write-error "Missing important files! Check files!" 
 pause
 Exit}
 
-$ARCH = (Get-WmiObject -Class Win32_ComputerSystem).SystemType -match ‘(x86)’
- if ($ARCH = "True") {
+write-host ">=============================================<" -ForegroundColor Cyan
+write-host 
+write-host "On which device is the script running?" -ForegroundColor Cyan
+write-host 
+write-host "1. x86 system (Desktop PC)" -ForegroundColor Green
+write-host "2. ARM system (Surface RT)" -ForegroundColor Red
+write-host 
+write-host ">=============================================<" -ForegroundColor Cyan
+write-host
+$ARCH=read-host "Write '1' or '2'"
+cls
 
-Add-Type -AssemblyName System.Windows.Forms
+Switch ($ARCH) {
+1 {Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 $Download_and_Copy               = New-Object system.Windows.Forms.Form
@@ -61,10 +75,9 @@ If (Test-Path -PathType Leaf -Path "$PSScriptRoot\Files") {& "$PSScriptRoot\Bin\
 $Button2.Add_Click({ 
 While($ny -notlike "Y"){
 Write-host "Please write the drive LETTER below where you want to copy the files" -ForegroundColor Red
-$Destination=read-host
+$Destination=read-host "Write disk letter"
 Write-host "Are you sure you want to copy the files to disk $Destination ?"
-Write-host "Write Y or N"
-$choose=read-host
+$choose=read-host "Write Y or N"
 Switch($choose){
 "Y" {$ny=$choose}
 "N" {Write-host "Choose again"}}
@@ -78,11 +91,53 @@ If ($ny -like "Y") {
 
 [void]$Download_and_Copy.ShowDialog()
 }
-else {
-	Write-host "Sorry, only for x86 systems"
-	pause
-	exit
-}
 
-
-
+2 {
+ write-host ">========================================================<" -ForegroundColor Cyan
+ write-host "     Hi, that is download script for FastWin10RTStart" -ForegroundColor Cyan
+ write-host "              Thanks for using my stuff" -ForegroundColor Cyan
+ write-host "               Script made by NeonCatRC" -ForegroundColor Cyan
+ write-host "            Used programs: wget, curl, 7z" -ForegroundColor Cyan
+ write-host "If you want to say 'Thank you'- join OpenRT discord server" -ForegroundColor DarkGreen
+ write-host "          Here it is: https://discord.gg/tAxvvVC" -ForegroundColor Cyan
+ write-host ">========================================================<" -ForegroundColor Cyan
+ pause
+ cls
+ 
+ While ($ARMchoose -notlike "3") {
+	  write-host ">=============================================<" -ForegroundColor Cyan
+      write-host 
+      write-host "What do you want to do?" -ForegroundColor Cyan
+      write-host 
+      write-host "1. Download files for core script" -ForegroundColor Green
+      write-host "2. Copy files on your USB drive (not working now)" -ForegroundColor Green
+      write-host "3. Exit" -ForegroundColor Red
+      write-host 
+      write-host ">=============================================<" -ForegroundColor Cyan
+      write-host
+      $ARMchoose=read-host "Write '1','2' or '3'"
+      cls
+    Switch ($ARMchoose){
+    1 {write-host "Start download. Please, dont close powershell session" -ForegroundColor Red
+    & "$PSScriptRoot\Bin\curl\curl.exe" -# https://archive.org/download/files-wrt-3_202102/FilesWRT3.zip
+    Copy-Item -Path "$PSScriptRoot\Bin\curl\FilesWRT3.zip" -Destination "$PSScriptRoot\"} 
+    2 {While($ny2 -notlike "Y"){
+    Write-host "Please write the drive LETTER below where you want to copy the files" -ForegroundColor Red
+    $Destination=read-host "Write disk letter"
+    Write-host "Are you sure you want to copy the files to disk $Destination ?"
+    $choose2=read-host "Write Y or N"
+    Switch($choose2){
+    "Y" {$ny2=$choose2}
+    "N" {Write-host "Choose again"}}
+    }
+    If ($ny2 -like "Y") {
+    #Copy-Item -Path "$PSScriptRoot\Files" -Destination $Destination:\FastWin10RTStart -Verbose -Force -Recurce
+    #Copy-Item -Path "$PSScriptRoot\FastWin10RTStart.ps1" -Destination $Destination:\FastWin10RTStart -Verbose -Force
+    }}
+    3 {Write-host "Goodbye"
+     pause
+     Exit}
+    }
+   }
+  }
+ }
