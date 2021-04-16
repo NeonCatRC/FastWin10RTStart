@@ -16,7 +16,7 @@ write-host
 write-host "On which device is the script running?" -ForegroundColor Cyan
 write-host 
 write-host "1. x86 system (Desktop PC)" -ForegroundColor Green
-write-host "2. ARM system (Surface RT)" -ForegroundColor Red
+write-host "2. ARM system (Surface RT) ((I tried, cUrl not work))" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
@@ -119,7 +119,7 @@ If ($ny -like "Y") {
       cls
     Switch ($ARMchoose){
     1 {write-host "Start download. Please, dont close powershell session" -ForegroundColor Red
-    While (Test-Path -Path "$PSScriptRoot\Files" = False) {
+    While (Test-Path -PathType Leaf -Path "$PSScriptRoot\Files") {
     If (Test-Path -Path "$PSScriptRoot\Bin\curl\FilesWRT3.zip") {Copy-Item -Path "$PSScriptRoot\Bin\curl\FilesWRT3.zip" -Destination "$PSScriptRoot\"}
     If (Test-Path -PathType Leaf -Path "$PSScriptRoot\Files") {& "$PSScriptRoot\Bin\7z-arm\7z.exe" x "$PSScriptRoot\FilesWRT3.zip"}
     If (Test-Path -PathType Leaf -Path "$PSScriptRoot\FilesWRT3.zip") {If (Test-Path -PathType Leaf -Path "$PSScriptRoot\Bin\curl\FilesWRT3.zip") { & "$PSScriptRoot\Bin\curl\curl.exe" -# https://archive.org/download/files-wrt-3_202102/FilesWRT3.zip}}
