@@ -32,49 +32,24 @@ $WATEROFF = "$PSScriptRoot\Files\LP"
 $license= Test-Path -PathType Leaf -Path "c:\windows\system32\licensingui.exe"
 
 ################### Check folders and files ############################
-if (Test-Path -Path $BaseFiles) {
-write-host "Check" -ForegroundColor Green
-}
+if (Test-Path -Path $BaseFiles) {write-host "Check" -ForegroundColor Green}
+if (Test-Path -Path $DependF) {write-host "Check" -ForegroundColor Green}
+if (Test-Path -Path $CERF) {write-host "Check" -ForegroundColor Green}
+if (Test-Path -Path $METROapps) {write-host "Check" -ForegroundColor Green}
+if (Test-Path -Path $NONuwp) {write-host "Check" -ForegroundColor Green}
 else {
-write-error "Missing folder! Check files!"
-pause
-Exit
-}
-
-if (Test-Path -Path $DependF) {
-write-host "Check" -ForegroundColor Green
-}
-else {
-write-error "Missing folder! Check files!"
-pause
-Exit
-}
-
-if (Test-Path -Path $CERF) {
-write-host "Check" -ForegroundColor Green
-}
-else {
-write-error "Missing folder! Check files!"
-pause
-Exit
-}
-
-if (Test-Path -Path $METROapps) {
-write-host "Check" -ForegroundColor Green
-}
-else {
-write-error "Missing folder! Check files!"
-pause
-Exit
-}
-
-if (Test-Path -Path $NONuwp) {
-write-host "Check" -ForegroundColor Green
-}
-else {
-write-error "Missing folder! Check files!"
-pause
-Exit
+Write-error "Missing files!"
+While($Downl -notlike "Y"){
+ Write-host "Do You want to start download script?"
+ $Downl=read-Host "Write Y or N"
+ Switch($choose){
+  "Y" {$Downl=$choose}
+  "N" {Write-host "Choose again"}
+  }
+ If ($Downl -like "Y") {powershell .\FW10RT_Download_and_Copy.ps1}
+ pause
+ Exit
+ }
 }
 
 write-host "All folders checked!" -ForegroundColor Green  
@@ -102,9 +77,8 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
+$act=read-host "Write [Y] or [N]" 
 
-$act=read-host
 cls
 
 write-host ">===============================================================<" -ForegroundColor Cyan
@@ -116,9 +90,8 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">===============================================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
+$cam=read-host "Write [Y] or [N]" 
 
-$cam=read-host
 cls
 
 write-host ">===============================================================<" -ForegroundColor Cyan
@@ -130,9 +103,8 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">===============================================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
+$ru=read-host "Write [Y] or [N]" 
 
-$ru=read-host
 cls
 
 write-host ">=============================================<" -ForegroundColor Cyan
@@ -144,9 +116,8 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
+$water=read-host "Write [Y] or [N]" 
 
-$water=read-host
 cls
 
 write-host ">===============================================================<" -ForegroundColor Cyan
@@ -158,9 +129,8 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">===============================================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
+$BitLock=read-host "Write [Y] or [N]" -
 
-$BitLock=read-host
 cls
 
 write-host ">=============================================<" -ForegroundColor Cyan
@@ -172,9 +142,7 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
-
-$METRO=read-host
+$METRO=read-host "Write [Y] or [N]" -
 
 if ($METRO -like "Y")
 {
@@ -187,9 +155,7 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
-
-$Etc=read-host
+$Etc=read-host "Write [Y] or [N]" 
 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host 
@@ -200,9 +166,7 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
-
-$Office=read-host
+$Office=read-host "Write [Y] or [N]" 
 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host 
@@ -213,9 +177,8 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
+$Bing=read-host "Write [Y] or [N]" 
 
-$Bing=read-host
 }
 cls
 
@@ -228,9 +191,7 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
-
-$NONMETRO=read-host
+$NONMETRO=read-host "Write [Y] or [N]" 
 
 if ($NONMETRO -like "Y")
 {
@@ -243,9 +204,7 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
-
-$7z=read-host
+$7z=read-host "Write [Y] or [N]" 
 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host 
@@ -256,9 +215,7 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
-
-$Notepad=read-host
+$Notepad=read-host "Write [Y] or [N]" 
 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host 
@@ -269,9 +226,8 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
+$IE=read-host "Write [Y] or [N]" 
 
-$IE=read-host
 cls}
 
 write-host ">====================================================<" -ForegroundColor Cyan
@@ -283,9 +239,8 @@ write-host "N. No" -ForegroundColor Red
 write-host 
 write-host ">====================================================<" -ForegroundColor Cyan
 write-host
-write-host "Write [Y] or [N]" -ForegroundColor Cyan
+$clear=read-host "Write [Y] or [N]" -
 
-$clear=read-host
 cls
 
 #######################Start Fix Shit###############################
