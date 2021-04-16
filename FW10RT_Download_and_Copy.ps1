@@ -119,8 +119,11 @@ If ($ny -like "Y") {
       cls
     Switch ($ARMchoose){
     1 {write-host "Start download. Please, dont close powershell session" -ForegroundColor Red
-    & "$PSScriptRoot\Bin\curl\curl.exe" -# https://archive.org/download/files-wrt-3_202102/FilesWRT3.zip
-    Copy-Item -Path "$PSScriptRoot\Bin\curl\FilesWRT3.zip" -Destination "$PSScriptRoot\"} 
+    While (Test-Path -Path "$PSScriptRoot\Files" = False) {
+    If (Test-Path -Path "$PSScriptRoot\Bin\curl\FilesWRT3.zip") {Copy-Item -Path "$PSScriptRoot\Bin\curl\FilesWRT3.zip" -Destination "$PSScriptRoot\"}
+    If (Test-Path -PathType Leaf -Path "$PSScriptRoot\Files") {& "$PSScriptRoot\Bin\7z-arm\7z.exe" x "$PSScriptRoot\FilesWRT3.zip"}
+    If (Test-Path -PathType Leaf -Path "$PSScriptRoot\FilesWRT3.zip") {If (Test-Path -PathType Leaf -Path "$PSScriptRoot\Bin\curl\FilesWRT3.zip") { & "$PSScriptRoot\Bin\curl\curl.exe" -# https://archive.org/download/files-wrt-3_202102/FilesWRT3.zip}}
+    }}
     2 {While($ny2 -notlike "Y"){
     Write-host "Please write the drive LETTER below where you want to copy the files" -ForegroundColor Red
     $Destination=read-host "Write disk letter"
@@ -137,7 +140,6 @@ If ($ny -like "Y") {
     3 {Write-host "Goodbye"
      pause
      Exit}
-    }
-   }
-  }
- }
+    }}}}
+
+ 
