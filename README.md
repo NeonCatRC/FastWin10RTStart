@@ -49,7 +49,7 @@ Archive.org- [Link][Archive]
    [wget]: <https://www.gnu.org/software/wget/>
    [7z]: <https://www.7-zip.org/>
    [Clean]: <https://gist.github.com/halkyon/b73fb75e61c37b7ba5f65bb6f3979f00>
-   [Yandex]: <https://yadi.sk/d/XBLlgbBXLigUhA?w=1>
-   [Google]: <https://drive.google.com/drive/folders/1-oIPQSwXYz6FCiu-9qtkUPGopQWAmosK?usp=sharing>
+   [Yandex]: <https://disk.yandex.ru/d/H7vH7WIIrdkX5A?w=1>
+   [Google]: <https://drive.google.com/drive/folders/1WTqaTHQcL7-FNtlOlH8sybZ4m0zZPcV5?usp=sharing>
    [Archive]: <https://archive.org/details/files-wrt-3_202102>
    [Curl]: <https://curl.se/>
