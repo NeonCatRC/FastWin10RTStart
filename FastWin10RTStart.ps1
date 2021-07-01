@@ -1,31 +1,31 @@
 set-ExecutionPolicy RemoteSigned
-cls
+Clear-Host
 
-# Основная папка
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 $BaseFiles = "$PSScriptRoot\Files"
 
-# Папка METRO приложений
+# пїЅпїЅпїЅпїЅпїЅ METRO пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 $METROapps = "$PSScriptRoot\Files\METROapps\Core"
 
-# Папка приложений Office
+# пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Office
 $OfficeApps = "$PSScriptRoot\Files\METROapps\secondary\Office"
 
-# Папка приложений Bing
+# пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Bing
 $BingApps = "$PSScriptRoot\Files\METROapps\secondary\Bing"
 
-# Папка приложений Xbox and etc.
+# пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Xbox and etc.
 $EtcApps = "$PSScriptRoot\Files\METROapps\secondary\Etc"
 
-# Папка non-uwp
+# пїЅпїЅпїЅпїЅпїЅ non-uwp
 $NONuwp = "$PSScriptRoot\Files\METROapps\nonuwp"
 
-# Папка Зависимостей
+# пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 $DependF = "$PSScriptRoot\Files\dependencies"
 
-# Папка сертификатов
+# пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 $CERF = "$PSScriptRoot\Files\Cert"
 
-# Папка отключения WaterMarkи
+# пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ WaterMarkпїЅ
 $WATEROFF = "$PSScriptRoot\Files\LP"
 
 #Test licensgui
@@ -65,7 +65,7 @@ write-host "If you want to say 'Thank you'- join OpenRT discord server" -Foregro
 write-host "          Here it is: https://discord.gg/tAxvvVC" -ForegroundColor Cyan
 write-host ">========================================================<" -ForegroundColor Cyan
 pause
-cls
+Clear-Host
 
 ################### Options ############################
 write-host ">=============================================<" -ForegroundColor Cyan
@@ -79,7 +79,7 @@ write-host ">=============================================<" -ForegroundColor Cy
 write-host
 $act=read-host "Write [Y] or [N]" 
 
-cls
+Clear-Host
 
 write-host ">===============================================================<" -ForegroundColor Cyan
 write-host 
@@ -92,7 +92,7 @@ write-host ">===============================================================<" -
 write-host
 $cam=read-host "Write [Y] or [N]" 
 
-cls
+Clear-Host
 
 write-host ">===============================================================<" -ForegroundColor Cyan
 write-host 
@@ -105,7 +105,7 @@ write-host ">===============================================================<" -
 write-host
 $ru=read-host "Write [Y] or [N]" 
 
-cls
+Clear-Host
 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host 
@@ -118,7 +118,7 @@ write-host ">=============================================<" -ForegroundColor Cy
 write-host
 $water=read-host "Write [Y] or [N]" 
 
-cls
+Clear-Host
 
 write-host ">===============================================================<" -ForegroundColor Cyan
 write-host 
@@ -131,7 +131,7 @@ write-host ">===============================================================<" -
 write-host
 $BitLock=read-host "Write [Y] or [N]" -
 
-cls
+Clear-Host
 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host 
@@ -180,7 +180,7 @@ write-host
 $Bing=read-host "Write [Y] or [N]" 
 
 }
-cls
+Clear-Host
 
 write-host ">=============================================<" -ForegroundColor Cyan
 write-host 
@@ -228,7 +228,7 @@ write-host ">=============================================<" -ForegroundColor Cy
 write-host
 $IE=read-host "Write [Y] or [N]" 
 
-cls}
+Clear-Host}
 
 write-host ">====================================================<" -ForegroundColor Cyan
 write-host 
@@ -241,7 +241,7 @@ write-host ">====================================================<" -ForegroundC
 write-host
 $clear=read-host "Write [Y] or [N]" -
 
-cls
+Clear-Host
 
 #######################Start Fix Shit###############################
 
@@ -253,7 +253,7 @@ switch ($cam){
     }
  "N"{Write-Host "Skip fix camera"}
 } 
-cls
+Clear-Host
 
 #######################RU#######################
 
@@ -281,13 +281,13 @@ $pagefile.InitialSize = 1024;
 $pagefile.MaximumSize = 2047;
 $pagefile.Put(); 
 Write-Host "Pagefile set!" -ForegroundColor DarkGreen
-cls
+Clear-Host
 
 #######################Import certificate#######################
 
 Import-Certificate -FilePath $CERF\CERbyNeonCat.cer -CertStoreLocation Cert:\LocalMachine\Root
 #Import-Certificate -FilePath $CERF\21.cer -CertStoreLocation Cert:\LocalMachine\Root
-cls
+Clear-Host
 
 #######################Activate Win#######################
 
@@ -301,7 +301,7 @@ switch ($act){
     }
  "N"{write-host "Skip activation"}
 } 
-cls
+Clear-Host
 
 #######################Delete watermark#######################
 
@@ -346,7 +346,7 @@ Switch ($license) {
  Move-Item "c:\windows\system32\licensingui.exe" "c:\windows\system32\licensingui00.exe" -Force
  Write-Host "Annoying POPup disabled" -ForegroundColor DarkGreen
  pause
- cls
+ Clear-Host
 }
  "False" {
  Write-Host "LicenseGUI already delete!"
@@ -374,7 +374,7 @@ Switch ($METRO) {
   If ($Office -like "Y") {Add-AppxPackage -Path $OfficeApps\*.AppxBundle}
   If ($Etc -like "Y") {Add-AppxPackage -Path $EtcApps\*.AppxBundle}
   If ($Bing -like "Y") {Add-AppxPackage -Path $BingApps\*.AppxBundle}
-  cls
+  Clear-Host
 }
 "N" {write-host "Skip intsall METRO-apps"}
 }
@@ -406,7 +406,7 @@ switch ($BitLock){
  Write-Host "Skip disable BitLocker"
     }
 } 
-cls
+Clear-Host
 
 ######################################Clean up###################################################
 
