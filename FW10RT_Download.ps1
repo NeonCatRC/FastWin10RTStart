@@ -37,12 +37,11 @@ else {$OSarc="x86"
       write-host "What do you want to do?" -ForegroundColor Cyan
       write-host 
       write-host "1. Download files for core script" -ForegroundColor Green
-      write-host "2. Copy files on your USB drive (not working now)" -ForegroundColor Green
-      write-host "3. Exit" -ForegroundColor Red
+      write-host "2. Exit" -ForegroundColor Red
       write-host 
       write-host ">=============================================<" -ForegroundColor Cyan
       write-host
-      $choose=read-host "Write '1','2' or '3'"
+      $choose=read-host "Write '1'or '2'"
       Clear-Host
     Switch ($choose){
         1 {write-host "Start download. Please, dont close powershell session" -ForegroundColor Red
@@ -58,24 +57,10 @@ else {$OSarc="x86"
             }
           }
          }  
-        2 {While($ny2 -notlike "Y"){
-          Write-host "Please write the drive LETTER below where you want to copy the files" -ForegroundColor Red
-          $Destination=read-host "Write disk letter"
-          Write-host "Are you sure you want to copy the files to disk $Destination ?"
-          $choose2=read-host "Write Y or N"
-          Switch($choose2){
-            "Y" {$ny2=$choose2}
-            "N" {Write-host "Choose again"}
-          }
+        2 {Write-host "Goodbye"
+          pause
+          Exit
         }
-        If ($ny2 -like "Y") {
-        robocopy "$PSScriptRoot\Files" "'$Destination':\FastWin10RTStart"
-        robocopy "$PSScriptRoot\FastWin10RTStart.ps1" "'$Destination':\FastWin10RTStart"
-      }
-    }
-    3 {Write-host "Goodbye"
-     pause
-     Exit}
     }
   }
    
